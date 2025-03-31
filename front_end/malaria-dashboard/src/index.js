@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 // If your FastAPI is running at http://127.0.0.1:8000
-axios.defaults.baseURL = 'http://127.0.0.1:8000';
+axios.defaults.baseURL = 'https://fastapi-malaria-dashboard.onrender.com';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
