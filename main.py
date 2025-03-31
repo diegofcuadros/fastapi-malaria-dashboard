@@ -7,34 +7,29 @@ import statistics
 import statsmodels.api as sm
 from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI()
 
-# Initial DB constants (optional redundancy)
-DB_HOST = "localhost"
-DB_PORT = "5436"
-DB_NAME = "malaria_db"
-DB_USER = "postgres"
-DB_PASSWORD = "112714"
-
-import os
-
-# Overwrite with environment variables if set (providing defaults)
+# Use environment variables for DB connection, with fallback defaults.
+# NOTE: For production on Render, set these environment variables to your production DB credentials.
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_PORT = os.getenv("DB_PORT", "5436")
 DB_NAME = os.getenv("DB_NAME", "malaria_db")
 DB_USER = os.getenv("DB_USER", "postgres")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "112714")
 
+# Allow requests from your Netlify domain. For testing, you might use ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://tangerine-horse-86858e.netlify.app"],  # allow requests from your Netlify site
+    allow_origins=["https://tangerine-horse-86858e.netlify.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 def get_db_connection():
+    # Connect to PostgreSQL using the provided environment variables.
     conn = psycopg2.connect(
         host=DB_HOST,
         port=DB_PORT,
@@ -155,7 +150,6 @@ def get_box_data(
     query = f"SELECT {group_by}, {column} FROM malaria_records WHERE {column} IS NOT NULL"
     df = pd.read_sql_query(query, conn)
     conn.close()
-    # Group data by the grouping variable and collect numeric values into lists
     groups = df.groupby(group_by)[column].apply(list).reset_index()
     return JSONResponse(content=groups.to_dict(orient="records"))
 
@@ -171,18 +165,16 @@ def get_heatmap_data(
     df = pd.read_sql_query(query, conn)
     conn.close()
     
-    # Convert 'monthyear' to datetime and extract month if required
     df['monthyear'] = pd.to_datetime(df['monthyear'])
     if time_extraction:
         df['month'] = df['monthyear'].dt.month
     else:
-        df['month'] = df['monthyear']  # Use full date if preferred
+        df['month'] = df['monthyear']
 
-    # Pivot the table so rows are groups and columns are months, values are averages of the column
     pivot_df = df.groupby([group_by, 'month'])[column].mean().unstack(fill_value=0)
-    groups = pivot_df.index.tolist()         # y-axis labels
-    months = pivot_df.columns.tolist()         # x-axis labels
-    matrix = pivot_df.values.tolist()          # 2D array for z-values
+    groups = pivot_df.index.tolist()
+    months = pivot_df.columns.tolist()
+    matrix = pivot_df.values.tolist()
 
     return JSONResponse(content={
         "groups": groups,
