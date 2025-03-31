@@ -28,7 +28,7 @@ DB_PASSWORD = os.getenv("DB_PASSWORD", "112714")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # or ["*"] for testing
+    allow_origins=["https://tangerine-horse-86858e.netlify.app"],  # allow requests from your Netlify site
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
