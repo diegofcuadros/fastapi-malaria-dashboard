@@ -1,0 +1,110 @@
+/* Reset and base styles */
+.App {
+  text-align: center;
+}
+
+/* Hide the default React logo if not used */
+.App-logo {
+  display: none;
+}
+
+/* ----------------------- */
+/* Custom Navbar Styling   */
+/* ----------------------- */
+
+/* Styles for the navbar brand title */
+.navbar-title {
+  font-size: 1.75rem;       /* Larger font size for prominence */
+  font-weight: bold;        /* Bold text */
+  color: #ffffff;           /* White text color */
+  padding: 0.5rem 1rem;      /* Padding for better spacing */
+}
+
+/* ----------------------- */
+/* Main Container Styling  */
+/* ----------------------- */
+
+/* Custom class for the main container background and padding */
+.main-container {
+  background-color: #f7f7f7;  /* Light grey background for contrast */
+  min-height: 100vh;          /* Ensure the container covers the full viewport height */
+  padding: 1rem;              /* Padding around content */
+}
+
+/* ----------------------- */
+/* Card Title Customization */
+/* ----------------------- */
+
+/* Increase the font size and set a custom blue color for card titles */
+.custom-card-title {
+  font-size: 1.5rem;
+  color: #0055ff;
+  margin-bottom: 0.5rem;  /* Space below the title */
+}
+
+/* ----------------------- */
+/* Sidebar Styling         */
+/* ----------------------- */
+
+/* Optional: styling for a sidebar container if you decide to wrap your sidebar controls in a dedicated class */
+.sidebar {
+  background-color: #e9ecef; /* Light Bootstrap gray */
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+/* ----------------------- */
+/* Modal Styling           */
+/* ----------------------- */
+
+/* Styling for modal headers and footers */
+.modal-header,
+.modal-footer {
+  background-color: #f0f0f0;
+}
+
+/* Optional: additional modal content styling */
+.modal-body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* ----------------------- */
+/* Advanced Visuals Styling */
+/* ----------------------- */
+
+/* Container for advanced plots (Box, Violin, Heatmap) */
+.plot-container {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+/* Specific style for Heatmap to give extra bottom margin */
+.heatmap-container {
+  margin-bottom: 2rem;
+}
+
+/* ----------------------- */
+/* Utility Classes         */
+/* ----------------------- */
+
+/* Spacing utility classes */
+.mt-3 {
+  margin-top: 1rem !important;
+}
+
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+
+/* Optional: styling for tab content if needed */
+.tab-content {
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-top: none;
+  border-radius: 0 0 0.25rem 0.25rem;
+}
